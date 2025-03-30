@@ -1,40 +1,21 @@
-// src/components/Register.jsx
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { registerUser } from "../redux/auth";
-import { useNavigate } from "react-router-dom";
-
-const Register = () => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleRegister = (e) => {
-    e.preventDefault();
-    dispatch(registerUser({ email, password, name })).then((res) => {
-      if (res.payload) navigate("/login"); // Redirect ke halaman login setelah sukses
-    });
-  };
-
+const Register = ({ email, setEmail, name, setName, password, setPassword, handleSubmit }) => {
   return (
-    <form onSubmit={handleRegister} className="bg-white p-6 rounded shadow-md w-80">
-      <h2 className="text-lg font-bold mb-4">Register</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="w-full p-2 border rounded mb-2"
-        required
-      />
+    <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-96">
+      <h2 className="text-3xl font-bold text-center mb-6">Register</h2>
       <input
         type="text"
         placeholder="Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full p-2 border rounded mb-2"
+        className="w-full p-2 border rounded mb-4"
+        required
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="w-full p-2 border rounded mb-4"
         required
       />
       <input
@@ -42,10 +23,10 @@ const Register = () => {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full p-2 border rounded mb-2"
+        className="w-full p-2 border rounded mb-4"
         required
       />
-      <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded w-full">
+      <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded w-full hover:bg-green-600">
         Register
       </button>
     </form>
